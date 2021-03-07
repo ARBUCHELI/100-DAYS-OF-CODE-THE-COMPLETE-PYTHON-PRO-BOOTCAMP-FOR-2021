@@ -4,6 +4,7 @@
 
 * Section 1: Day 1 - Beginner - Working with Variables in Python to Manage Data.
 * Section 2: Day 2 - Beginner - Understanding Data Types and How to manipulate strings.
+* Section 3: Day 3 - Beginner - Control Flow and Logical Operators.
 
 
 
