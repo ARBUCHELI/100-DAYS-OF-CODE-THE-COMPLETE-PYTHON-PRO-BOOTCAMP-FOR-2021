@@ -7,6 +7,9 @@
 * Section 3: Day 3 - Beginner - Control Flow and Logical Operators.
 * Section 4: Day 4 - Beginner - Randomisation and Python Lists.
 * Section 5: Day 5 - Beginner - Python Loops.
+* Section 6: Day 6 - Beginner - Python Functions & Karel.
+* Section 7: Day 7 - Beginner - Hangman.
+* Section 8: Day 8 - Beginner - Function Parameters & Caesar Cipher.
 
 
 
