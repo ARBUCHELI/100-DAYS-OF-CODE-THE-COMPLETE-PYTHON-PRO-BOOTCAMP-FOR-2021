@@ -62,10 +62,10 @@ import random
 from art import logo
 
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+player = [random.choice(cards), random.choice(cards)]
+dealer = [random.choice(cards), random.choice(cards)]
 def blackjack():
-  player = [random.choice(cards), random.choice(cards)]
-  dealer = [random.choice(cards), random.choice(cards)]
-
+  
   sum_player = 0
   sum_dealer = 0
   for card in player:
@@ -94,19 +94,41 @@ def blackjack():
       else:
         sum_player1 = sum_player
     sum_player = sum_player1
+    if sum_player > 21:
+      print(f"Your final hand: {player}, final score: {sum_player}")
+      print(f"Computer's final hand: {dealer}, final score: {sum_dealer}")
+      print("You went over. You lose")
+    
 
     print(f"  Your cards: {player}, current score: {sum_player}") 
     print(f"  Computer's first card: {dealer[0]}")
-  
+    
     game2 = input("Type 'y' to get another card, type 'n' to pass: ")
     if game2 == "n":
-      print("Good luck!")
+      #print(sum_dealer)
+      sum_dealer1 = 0
+
+      while sum_dealer < 17:
+        dealer.append(random.choice(cards))
+        for card in dealer:
+          sum_dealer1+= card
+          sum_dealer = sum_dealer1
+      print(f"Computer's final hand: {dealer}, final score: {sum_dealer}")
+      if sum_dealer > 21:
+        print("Opponent went over. You win")
+      elif sum_player > 21:
+        print("You went over. You lose")
+      elif sum_dealer > sum_player and sum_dealer <= 21:
+        print("You lose")
+      elif sum_player > sum_dealer and sum_player <= 21:
+        print("You win")
     else:
+      dealer.append(random.choice(cards))
+      player.append(random.choice(cards))
       blackjack()
 
 game = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ")
-if game == "n":
-  print("Good luck!")
-else:
+if game == "y":
   print(logo)
   blackjack()
+  
