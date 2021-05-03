@@ -59,76 +59,112 @@
 
 #Hint 14: Ask the user if they want to restart the game. If they answer yes, clear the console and start a new game of blackjack and show the logo from art.py.
 import random
+from replit import clear
 from art import logo
 
-cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
-player = [random.choice(cards), random.choice(cards)]
-dealer = [random.choice(cards), random.choice(cards)]
 def blackjack():
+
+  cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+  def deal_card():
+    return random.choice(cards)
+  user_cards = []
+  computer_cards = []
+
+  user_cards.append(deal_card())
+  user_cards.append(deal_card())
   
-  sum_player = 0
-  sum_dealer = 0
-  for card in player:
-    sum_player+= card
+  computer_cards.append(deal_card())
+  computer_cards.append(deal_card())
+  
+  end = False
 
-  for card in dealer:
-    sum_dealer+= card
-
-  if sum_dealer == 21 and sum_player == 21:
-    print("Lose, oponnent has Blackjack")
-  elif sum_player == 21 and not sum_dealer == 21:
-    print("Win with a Blackjack")
-  elif sum_dealer == 21 and not sum_player == 21:
-    print("Lose, opponent has Blackjack")
-  else:
-    sum_player1 = 0
-    for card in player:
-      if card == 11 and sum_player > 21:
-        player[player.index(card)] = 1
-        for card in player:
-          sum_player1+= card
-      elif card == 11 and sum_player < 21:
-        player[player.index(card)] = 11
-        for card in player:
-          sum_player1+= card
+  def calculate_score(deck):
+    result = 0
+    result1 = 0
+    for card in deck:
+      result += card
+    if len(deck) == 2:
+      if (deck[0] == 11 and deck[1] == 10) or (deck[0] == 10 and deck[1] == 11):
+        return 0 
+    for i in range(0,len(deck)):
+      if deck[i] == 11:
+        if result > 21:
+          deck.remove(deck[i])
+          deck.append(1)
+          for card in deck:
+            result1 += card
+        elif result < 21:
+          for card in deck:
+            result1 += card
       else:
-        sum_player1 = sum_player
-    sum_player = sum_player1
-    if sum_player > 21:
-      print(f"Your final hand: {player}, final score: {sum_player}")
-      print(f"Computer's final hand: {dealer}, final score: {sum_dealer}")
-      print("You went over. You lose")
-    
+        for card in deck:
+          result1 += card
+      result = result1
+      return result
+     
+  user_result = calculate_score(user_cards)
+  computer_result = calculate_score(computer_cards)
 
-    print(f"  Your cards: {player}, current score: {sum_player}") 
-    print(f"  Computer's first card: {dealer[0]}")
-    
-    game2 = input("Type 'y' to get another card, type 'n' to pass: ")
-    if game2 == "n":
-      #print(sum_dealer)
-      sum_dealer1 = 0
+  print(f"  Your cards: {user_cards}, current score: {calculate_score(user_cards)}")
+  print(f"  Computer's first card: {computer_cards[0]}")
 
-      while sum_dealer < 17:
-        dealer.append(random.choice(cards))
-        for card in dealer:
-          sum_dealer1+= card
-          sum_dealer = sum_dealer1
-      print(f"Computer's final hand: {dealer}, final score: {sum_dealer}")
-      if sum_dealer > 21:
-        print("Opponent went over. You win")
-      elif sum_player > 21:
-        print("You went over. You lose")
-      elif sum_dealer > sum_player and sum_dealer <= 21:
-        print("You lose")
-      elif sum_player > sum_dealer and sum_player <= 21:
-        print("You win")
-    else:
-      dealer.append(random.choice(cards))
-      player.append(random.choice(cards))
-      blackjack()
+  if user_result == 0 or computer_result == 0 or user_result > 21:
+    end = True
 
-game = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ")
-if game == "y":
+  while end == False:
+    play_again = input("Type 'y' to get another card, type 'n' to pass: ")
+    if play_again == "y":
+      user_cards.append(deal_card())
+      user_result = calculate_score(user_cards)
+      computer_result = calculate_score(computer_cards)
+      print(f"  Your cards: {user_cards}, current score: {calculate_score(user_cards)}")
+      print(f"  Computer's first card: {computer_cards[0]}")
+
+      if user_result == 0 or computer_result == 0 or user_result > 21 or user_result == 21:
+        end = True
+    else: 
+      end = True
+
+  if not calculate_score(computer_cards) == 0:
+    while calculate_score(computer_cards) < 17: 
+      computer_cards.append(deal_card())
+  
+  user_result = calculate_score(user_cards)
+  computer_result = calculate_score(computer_cards)
+
+  if end == True:
+    print(f"Your final hand: {user_cards}, final score: {user_result}")
+    print(f"Computer's final hand: {computer_cards}, final score: {computer_result}")
+
+  def compare(user_score, computer_score):
+    if user_score == computer_score and not computer_score == 0:
+      print("draw 🙃")
+    elif computer_score == 0 or computer_score == 21:
+      print("Lose, opponent has Blackjack 😱")
+    elif (user_score == 0 or user_score ==21) and not computer_score == 0:
+      print("Win with a Blackjack 😎")
+    elif user_score > 21:
+      print("You went over, you lose 😭")
+    elif computer_score > 21:
+      print("Opponent went over, you win 😁")
+    elif computer_score > user_score and computer_score < 21:
+      print("You lose 😤")
+    elif user_score > computer_score and user_score < 21:
+      print("You win 😤")
+  
+
+  compare(calculate_score(user_cards), calculate_score(computer_cards))
+
+  new_game = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ")
+  if new_game == 'y':
+    clear()
+    print(logo)
+    blackjack()
+
+restart = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ")
+
+if restart == 'y':
+  clear()
   print(logo)
   blackjack()
   
