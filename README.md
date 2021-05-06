@@ -10,6 +10,10 @@
 * Section 6: Day 6 - Beginner - Python Functions & Karel.
 * Section 7: Day 7 - Beginner - Hangman.
 * Section 8: Day 8 - Beginner - Function Parameters & Caesar Cipher.
+* Section 9: Day 9 - Beginner - The Secret Auction Program.
+* Section 10: Day 10 - Beginner - Calculator.
+* <strong>Section 11: Day 11 - BLACKJACK CAPSTONE PROJECT.</strong>
+* Section 12: Day 12 - Beginner - Number Guessing Game.
 
 
 
