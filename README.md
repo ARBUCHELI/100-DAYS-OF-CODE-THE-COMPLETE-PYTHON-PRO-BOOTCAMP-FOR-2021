@@ -14,6 +14,7 @@
 * Section 10: Day 10 - Beginner - Calculator.
 * <strong>Section 11: Day 11 - BLACKJACK CAPSTONE PROJECT.</strong>
 * Section 12: Day 12 - Beginner - Number Guessing Game.
+* Section 13: Day 13 - Beginner - Debugging.
 
 
 
